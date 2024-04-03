@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:water_tech/controller/onBoardController.dart';
 import 'package:water_tech/view/pages/AutenticationPages/signup_page.dart';
 import 'package:water_tech/view/tools/MyDot_indicator.dart';
-import 'package:water_tech/view/tools/MyTextStyle.dart';
 import 'package:water_tech/view/tools/myOnboardTile.dart';
+import 'package:water_tech/view/tools/my_button.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({super.key});
@@ -55,70 +55,58 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: PageView.builder(
-                onPageChanged: (index) {
-                  setState(() {
-                    _pageIndex = index;
-                  });
-                },
-                controller: _pageController,
-                itemCount: onBcontroller.length,
-                itemBuilder: (context, index) {
-                  final onBoardData = onBcontroller[index];
-                  return MyOnBoardTile(
-                    imagePath: onBoardData.imagePath,
-                    title: onBoardData.title,
-                    caption: onBoardData.caption,
-                  );
-                }),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ...List.generate(
-                  onBcontroller.length,
-                  (index) => Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: MyDotIndicator(
-                      isActive: index == _pageIndex,
+      body: Container(
+        height: size.height,
+        width: size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: PageView.builder(
+                  onPageChanged: (index) {
+                    setState(() {
+                      _pageIndex = index;
+                    });
+                  },
+                  controller: _pageController,
+                  itemCount: onBcontroller.length,
+                  itemBuilder: (context, index) {
+                    final onBoardData = onBcontroller[index];
+                    return MyOnBoardTile(
+                      imagePath: onBoardData.imagePath,
+                      title: onBoardData.title,
+                      caption: onBoardData.caption,
+                    );
+                  }),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ...List.generate(
+                    onBcontroller.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: MyDotIndicator(
+                        isActive: index == _pageIndex,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          InkResponse(
-            splashColor: Colors.blue.shade100,
-            onTap: () {
-              Get.to(SignUpPage());
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 15.0),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                    borderRadius: BorderRadius.circular(15)),
-                height: 50,
-                width: 250,
-                child: Center(
-                  child: Text(
-                    'Get Started',
-                    style: buttonStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+                ],
               ),
             ),
-          )
-        ],
+            MyButton(
+                txt: 'Get Started',
+                ontap: () {
+                  Get.to(const SignUpPage());
+                })
+          ],
+        ),
       ),
     );
   }

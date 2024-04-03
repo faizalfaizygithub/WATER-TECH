@@ -8,6 +8,12 @@ TextStyle get headingStyle {
   ));
 }
 
+TextStyle get BheadingStyle {
+  return GoogleFonts.aBeeZee(
+      textStyle: const TextStyle(
+          fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold));
+}
+
 TextStyle get subHeadingStyle {
   return GoogleFonts.lato(
       textStyle: TextStyle(fontSize: 12, color: Colors.grey.shade500));
@@ -16,4 +22,9 @@ TextStyle get subHeadingStyle {
 TextStyle get buttonStyle {
   return GoogleFonts.lato(
       textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold));
+}
+
+TextStyle get smalltext {
+  return GoogleFonts.lato(
+      textStyle: TextStyle(color: Colors.white70, fontWeight: FontWeight.w500));
 }
