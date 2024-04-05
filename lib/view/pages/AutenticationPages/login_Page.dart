@@ -1,6 +1,11 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:water_tech/controller/firebase_auth_services.dart';
 import 'package:water_tech/view/pages/AutenticationPages/signup_page.dart';
+import 'package:water_tech/view/pages/home_page.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
 import 'package:water_tech/view/tools/myTextField.dart';
 import 'package:water_tech/view/tools/my_button.dart';
@@ -13,7 +18,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController passwordController = TextEditingController();
+  final Timer _timer = Timer(const Duration(seconds: 2), () {});
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   bool isVisible = true;
   @override
   Widget build(BuildContext context) {
@@ -46,9 +63,12 @@ class _LoginPageState extends State<LoginPage> {
               Column(
                 children: [
                   CustomTextField(
-                      obscuretext: false, labeltxt: 'Email', icon: Icons.email),
+                      controller: _emailController,
+                      obscuretext: false,
+                      labeltxt: 'Email',
+                      icon: Icons.email),
                   CustomTextField(
-                    controller: passwordController,
+                    controller: _passwordController,
                     obscuretext: isVisible,
                     labeltxt: 'Password',
                     icon: Icons.lock,
@@ -83,7 +103,11 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 30,
               ),
-              MyButton(txt: 'Login', ontap: () {}),
+              MyButton(
+                  txt: 'Login',
+                  ontap: () {
+                    _signIn();
+                  }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -116,5 +140,49 @@ class _LoginPageState extends State<LoginPage> {
       'assets/auth/login2.webp',
       fit: BoxFit.cover,
     );
+  }
+
+  void wrongEmailOrpasswordMessage() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+              icon: Icon(
+                Icons.warning,
+                color: Colors.red,
+              ),
+              title: Text(
+                'incorrect Email or Password',
+                style: TextStyle(color: Colors.red, fontSize: 12),
+              ));
+        });
+  }
+
+  void _signIn() async {
+    try {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          });
+
+      String email = _emailController.text;
+      String password = _passwordController.text;
+
+      User? user = await _auth.SignInWithEmailAndPassword(email, password);
+
+      if (user != null) {
+        print('User sUccesfully signIN');
+
+        Get.to(HomePage());
+      } else {
+        wrongEmailOrpasswordMessage();
+        Get.back(canPop: true);
+      }
+    } catch (e) {
+      Get.snackbar('incorrect', '$e');
+    }
   }
 }

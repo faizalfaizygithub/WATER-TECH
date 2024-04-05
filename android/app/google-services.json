@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "481897753925",
+    "project_id": "water-tech-5d614",
+    "storage_bucket": "water-tech-5d614.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481897753925:android:50804e33eb19f32644222c",
+        "android_client_info": {
+          "package_name": "com.example.water_tech"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVGE971Sw5oUIZMfZp7lIueT34y-UZ-Eg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

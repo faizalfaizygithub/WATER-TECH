@@ -9,7 +9,7 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkResponse(
-      splashColor: Colors.blue.shade100,
+      splashColor: Colors.blue.shade500,
       onTap: ontap,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 15.0),
