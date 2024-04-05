@@ -147,14 +147,15 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (context) {
           return const AlertDialog(
-              icon: Icon(
-                Icons.warning,
-                color: Colors.red,
-              ),
-              title: Text(
-                'incorrect Email or Password',
-                style: TextStyle(color: Colors.red, fontSize: 12),
-              ));
+            icon: Icon(
+              Icons.warning,
+              color: Colors.red,
+            ),
+            title: Text(
+              'incorrect Email or Password',
+              style: TextStyle(color: Colors.red, fontSize: 12),
+            ),
+          );
         });
   }
 
@@ -176,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
       if (user != null) {
         print('User sUccesfully signIN');
 
-        Get.to(HomePage());
+        Get.to(const HomePage());
       } else {
         wrongEmailOrpasswordMessage();
         Get.back(canPop: true);

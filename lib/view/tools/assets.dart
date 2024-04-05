@@ -8,3 +8,11 @@ List<String> serviceImages = [
   'assets/service/pic7.jpg',
   'assets/service/pic8.jpg',
 ];
+
+List<String> banners = [
+  'assets/banner/banner1.webp',
+  'assets/banner/banner2.jpg',
+  'assets/banner/banner3.png',
+  'assets/banner/banner4.webp',
+  'assets/banner/banner5.jpg',
+];

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:water_tech/view/tools/assets.dart';
 
 class CarouselScreen extends StatefulWidget {
   final dynamic photos;
@@ -22,10 +21,11 @@ class _CarouselScreenState extends State<CarouselScreen> {
   }
 
   void autoScroll() {
-    Timer.periodic(Duration(seconds: 3), (timer) {
+    Timer.periodic(const Duration(seconds: 3), (timer) {
       if (mounted) {
         _pageController.nextPage(
-            duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut);
       }
     });
   }
@@ -35,9 +35,10 @@ class _CarouselScreenState extends State<CarouselScreen> {
     return Column(
       children: [
         SizedBox(
-          height: 250,
+          height: 200,
           width: MediaQuery.of(context).size.width,
           child: PageView.builder(
+              physics: const BouncingScrollPhysics(),
               controller: _pageController,
               itemCount: widget.photos.length * 1000,
               onPageChanged: (page) {
@@ -54,7 +55,7 @@ class _CarouselScreenState extends State<CarouselScreen> {
                 return slider(widget.photos, pageposition, active);
               }),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Row(
@@ -76,9 +77,10 @@ AnimatedContainer slider(photos, pageposition, active) {
     curve: Curves.bounceInOut,
     margin: EdgeInsets.all(margin),
     decoration: BoxDecoration(
+      color: Colors.blueGrey,
       image: DecorationImage(
         fit: BoxFit.cover,
-        image: AssetImage(serviceImages[indexx]),
+        image: AssetImage(photos[indexx]),
       ),
     ),
   );
@@ -88,11 +90,11 @@ List<Widget> imageIndicator(imagesLength, currentIndex) {
   return List<Widget>.generate(imagesLength, (index) {
     return Container(
       height: 10,
-      width: 15,
-      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      width: 10,
+      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: currentIndex == index * 1000 ? Colors.black : Colors.grey),
+          shape: BoxShape.rectangle,
+          color: currentIndex == index * 1000 ? Colors.blue : Colors.grey),
     );
   });
 }
