@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class CarouselScreen extends StatefulWidget {
   final dynamic photos;
+  bool isActive;
 
-  const CarouselScreen({super.key, this.photos});
+  CarouselScreen({super.key, this.photos, this.isActive = false});
   @override
   State<CarouselScreen> createState() => _CarouselScreenState();
 }
@@ -21,11 +22,10 @@ class _CarouselScreenState extends State<CarouselScreen> {
   }
 
   void autoScroll() {
-    Timer.periodic(const Duration(seconds: 3), (timer) {
+    Timer.periodic(Duration(seconds: 3), (timer) {
       if (mounted) {
         _pageController.nextPage(
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeInOut);
+            duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
       }
     });
   }
@@ -38,7 +38,7 @@ class _CarouselScreenState extends State<CarouselScreen> {
           height: 200,
           width: MediaQuery.of(context).size.width,
           child: PageView.builder(
-              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
               controller: _pageController,
               itemCount: widget.photos.length * 1000,
               onPageChanged: (page) {
@@ -55,7 +55,7 @@ class _CarouselScreenState extends State<CarouselScreen> {
                 return slider(widget.photos, pageposition, active);
               }),
         ),
-        const SizedBox(
+        SizedBox(
           height: 20,
         ),
         Row(
@@ -77,7 +77,7 @@ AnimatedContainer slider(photos, pageposition, active) {
     curve: Curves.bounceInOut,
     margin: EdgeInsets.all(margin),
     decoration: BoxDecoration(
-      color: Colors.blueGrey,
+      borderRadius: BorderRadius.circular(15),
       image: DecorationImage(
         fit: BoxFit.cover,
         image: AssetImage(photos[indexx]),
@@ -91,10 +91,12 @@ List<Widget> imageIndicator(imagesLength, currentIndex) {
     return Container(
       height: 10,
       width: 10,
-      margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       decoration: BoxDecoration(
           shape: BoxShape.rectangle,
-          color: currentIndex == index * 1000 ? Colors.blue : Colors.grey),
+          color: currentIndex == index * 1000
+              ? Colors.blue
+              : Colors.grey.shade400),
     );
   });
 }

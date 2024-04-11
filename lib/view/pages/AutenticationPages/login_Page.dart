@@ -56,9 +56,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Text(
                 'Welcome Back',
-                style: BheadingStyle,
+                style: WhiteheadingStyle,
               ),
-              Text('Login to your existing account', style: smalltext),
+              Text('Login to your existing account', style: greySmalltext),
               _image(),
               Column(
                 children: [
@@ -118,7 +118,9 @@ class _LoginPageState extends State<LoginPage> {
                   Expanded(
                     child: TextButton(
                       onPressed: () {
-                        Get.to(const SignUpPage());
+                        Get.to(const SignUpPage(),
+                            transition: Transition.zoom,
+                            duration: Duration(seconds: 2));
                       },
                       child: const Text(
                         'Sign up',

@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-TextStyle get headingStyle {
+TextStyle get BlueheadingStyle {
   return GoogleFonts.aBeeZee(
-      textStyle:
-          TextStyle(fontWeight: FontWeight.w600, color: Colors.blue.shade800));
+      textStyle: TextStyle(
+          fontSize: 23,
+          fontWeight: FontWeight.w600,
+          color: Colors.blue.shade800));
 }
 
-TextStyle get BheadingStyle {
+TextStyle get WhiteheadingStyle {
   return GoogleFonts.aBeeZee(
       textStyle: const TextStyle(
           fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold));
 }
 
-TextStyle get subHeadingStyle {
+TextStyle get greySmalltext {
   return GoogleFonts.lato(
       textStyle: TextStyle(fontSize: 12, color: Colors.grey.shade500));
 }
 
 TextStyle get subHeadingStyleBlue {
   return GoogleFonts.lato(
-      textStyle: TextStyle(fontSize: 15, color: Colors.blue.shade700));
+      textStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 15,
+          color: Colors.blue.shade700));
 }
 
 TextStyle get buttonStyle {
@@ -28,8 +33,14 @@ TextStyle get buttonStyle {
       textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold));
 }
 
-TextStyle get smalltext {
+TextStyle get blacksmalltext {
   return GoogleFonts.lato(
       textStyle: TextStyle(
-          fontSize: 10, color: Colors.black54, fontWeight: FontWeight.w500));
+          fontSize: 10, color: Colors.black, fontWeight: FontWeight.w500));
+}
+
+TextStyle get blacktextStyle {
+  return GoogleFonts.aBeeZee(
+      textStyle:
+          const TextStyle(color: Colors.black, fontWeight: FontWeight.bold));
 }

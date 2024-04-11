@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:water_tech/controller/home_provider_controller.dart';
 import 'package:water_tech/firebase_options.dart';
-import 'package:water_tech/view/pages/home_page.dart';
+import 'package:water_tech/view/pages/mainPage.dart';
 import 'package:water_tech/view/tools/color_theme.dart';
 
 Future<void> main() async {
@@ -10,7 +12,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => HomeProviderController(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,6 +28,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: lightMode,
-        home: HomePage());
+        home: MainPage());
   }
 }

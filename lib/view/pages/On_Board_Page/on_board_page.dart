@@ -58,7 +58,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Colors.white,
       body: Container(
         height: size.height,
         width: size.width,
@@ -103,7 +103,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             MyButton(
                 txt: 'Get Started',
                 ontap: () {
-                  Get.to(const SignUpPage());
+                  Get.to(const SignUpPage(),
+                      transition: Transition.fadeIn,
+                      duration: Duration(seconds: 2));
                 })
           ],
         ),

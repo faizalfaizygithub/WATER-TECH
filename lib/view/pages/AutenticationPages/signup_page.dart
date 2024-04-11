@@ -53,10 +53,10 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               Text(
                 "Let's Get Started",
-                style: BheadingStyle,
+                style: WhiteheadingStyle,
               ),
               Text('Signup your Account to access  \n our service..',
-                  style: smalltext),
+                  style: greySmalltext),
               _image(),
               Column(
                 children: [
@@ -96,7 +96,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   Expanded(
                     child: TextButton(
                       onPressed: () {
-                        Get.to(const LoginPage());
+                        Get.to(const LoginPage(),
+                            transition: Transition.zoom,
+                            duration: Duration(seconds: 2));
                       },
                       child: const Text(
                         'Login',

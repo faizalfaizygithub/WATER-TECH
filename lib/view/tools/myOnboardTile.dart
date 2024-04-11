@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -14,38 +15,35 @@ class MyOnBoardTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 50,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(
+            height: 150,
+          ),
+          AspectRatio(
+            aspectRatio: 1.5,
+            child: Image.asset(
+              imagePath!,
+              fit: BoxFit.cover,
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.5,
-              width: double.infinity,
-              child: Image.asset(
-                imagePath!,
-                fit: BoxFit.cover,
-              ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            title!,
+            style: BlueheadingStyle,
+            textAlign: TextAlign.center,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+            child: Text(
+              caption!,
+              style: greySmalltext,
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              title!,
-              style: headingStyle,
-              textAlign: TextAlign.center,
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-              child: Text(
-                caption!,
-                style: subHeadingStyle,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -7,6 +7,7 @@ class MyDotIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       duration: Duration(milliseconds: 300),
       height: 8,
       width: isActive ? 24 : 8,
