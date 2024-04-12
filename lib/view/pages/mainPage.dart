@@ -12,7 +12,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  bool active = false;
   final List<Widget> pages = [
     const HomePage(),
     const SettingsPage(),
@@ -35,7 +34,6 @@ class _MainPageState extends State<MainPage> {
           onTap: (value) {
             setState(() {
               currentPage = value;
-              active = !active;
             });
           },
           items: const [

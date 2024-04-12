@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 TextStyle get BlueheadingStyle {
   return GoogleFonts.aBeeZee(
       textStyle: TextStyle(
-          fontSize: 23,
+          fontSize: 20,
           fontWeight: FontWeight.w600,
           color: Colors.blue.shade800));
 }
@@ -30,17 +30,18 @@ TextStyle get subHeadingStyleBlue {
 
 TextStyle get buttonStyle {
   return GoogleFonts.lato(
-      textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold));
+      textStyle:
+          const TextStyle(color: Colors.white, fontWeight: FontWeight.bold));
 }
 
 TextStyle get blacksmalltext {
   return GoogleFonts.lato(
-      textStyle: TextStyle(
+      textStyle: const TextStyle(
           fontSize: 10, color: Colors.black, fontWeight: FontWeight.w500));
 }
 
 TextStyle get blacktextStyle {
   return GoogleFonts.aBeeZee(
       textStyle:
-          const TextStyle(color: Colors.black, fontWeight: FontWeight.bold));
+          const TextStyle(color: Colors.black54, fontWeight: FontWeight.w600));
 }

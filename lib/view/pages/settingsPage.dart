@@ -82,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
               style: subHeadingStyleBlue,
             ),
             content:
-                Text('Are you sure want to Sign Out?', style: greySmalltext),
+                Text('Are you sure want to Sign Out?', style: blacksmalltext),
             actions: [
               TextButton(
                   onPressed: () {
@@ -123,12 +123,18 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
         onTap: action,
-        title: Text(text, style: subHeadingStyleBlue),
+        title: Text(text, style: blacktextStyle),
         subtitle: Text(
           subtxt!,
           style: greySmalltext,
         ),
-        leading: Icon(icon),
-        trailing: const Icon(Icons.arrow_forward_ios));
+        leading: Icon(
+          icon,
+          color: Colors.black54,
+        ),
+        trailing: const Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.black54,
+        ));
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_tech/controller/firebase_auth_services.dart';
 import 'package:water_tech/view/pages/AutenticationPages/login_Page.dart';
-import 'package:water_tech/view/pages/home_page.dart';
+import 'package:water_tech/view/pages/mainPage.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
 import 'package:water_tech/view/tools/myTextField.dart';
 import 'package:water_tech/view/tools/my_button.dart';
@@ -140,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
       if (user != null) {
         print('User sUccesfully created');
-        Get.to(HomePage());
+        Get.to(MainPage());
       } else {
         Get.back(canPop: true);
         print('some error happend');

@@ -18,19 +18,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    final size = MediaQuery.of(context).size;
 
     final serviceData = context.watch<HomeProviderController>().serviceList;
     return ListView(
-        padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
         children: [
           const SizedBox(
-            height: 50,
+            height: 30,
           ),
           appBarSection(user),
           searchBarSec(),
           Text('Latest Services', style: subHeadingStyleBlue),
-          Container(
+          SizedBox(
             height: 250,
             width: double.infinity,
             child: CarouselScreen(
@@ -38,22 +37,18 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Text('Select Category', style: subHeadingStyleBlue),
-          SizedBox(
-            height: 650,
-            width: size.width,
-            child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: serviceData.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 1 / 1.8, crossAxisCount: 2),
-                itemBuilder: (context, index) {
-                  final data = serviceData[index];
-                  return MyServiceListTile(service: data);
-                }),
-          ),
-          SizedBox(
+          GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              itemCount: serviceData.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 1 / 1.8, crossAxisCount: 2),
+              itemBuilder: (context, index) {
+                final data = serviceData[index];
+                return MyServiceListTile(service: data);
+              }),
+          const SizedBox(
             height: 10,
           ),
           capsuleTankSec(),
@@ -61,21 +56,32 @@ class _HomePageState extends State<HomePage> {
   }
 
   appBarSection(user) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.menu),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey.shade300,
+                    offset: const Offset(4, 4),
+                    blurRadius: 5),
+              ]),
+          child: const CircleAvatar(
+            backgroundImage: AssetImage(
+              'assets/photo/logo1.jpeg',
+            ),
           ),
-          Text(
-            "Hi, ${user!.email!}",
-            style: subHeadingStyleBlue,
-          ),
-          trailingsEC()
-        ],
-      ),
+        ),
+        Text(
+          'Hi , Faizy',
+          style: subHeadingStyleBlue,
+        ),
+        trailingsEC(),
+      ],
     );
   }
 
@@ -83,14 +89,13 @@ class _HomePageState extends State<HomePage> {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.blue),
           borderRadius: BorderRadius.circular(100),
           color: Theme.of(context).colorScheme.primary),
       height: 40,
       width: 40,
       child: IconButton(
         onPressed: () {},
-        icon: const Icon(Icons.person_2),
+        icon: const Icon(Icons.notifications),
       ),
     );
   }

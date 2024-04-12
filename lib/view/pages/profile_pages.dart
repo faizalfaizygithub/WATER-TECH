@@ -28,11 +28,11 @@ class _ProfilePageState extends State<ProfilePage> {
             Stack(
               children: [
                 const CircleAvatar(
-                  backgroundImage: AssetImage('assets/logo/pro.webp'),
-                  radius: 60,
+                  backgroundImage: AssetImage('assets/photo/pro.webp'),
+                  maxRadius: 60,
                 ),
                 Positioned(
-                  bottom: 10,
+                  bottom: 0,
                   left: 80,
                   child: IconButton(
                       onPressed: () {}, icon: const Icon(Icons.add_a_photo)),
@@ -134,12 +134,12 @@ class CustomTextField extends StatelessWidget {
                 icon,
                 color: Colors.blueGrey,
               ),
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(
                   color: Colors.white,
                   width: 2,
                 ),
-                borderRadius: const BorderRadius.all(
+                borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
               ),
