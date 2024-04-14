@@ -30,8 +30,8 @@ TextStyle get subHeadingStyleBlue {
 
 TextStyle get buttonStyle {
   return GoogleFonts.lato(
-      textStyle:
-          const TextStyle(color: Colors.white, fontWeight: FontWeight.bold));
+      textStyle: const TextStyle(
+          fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold));
 }
 
 TextStyle get blacksmalltext {

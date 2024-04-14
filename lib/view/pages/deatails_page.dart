@@ -8,7 +8,7 @@ import 'package:water_tech/view/tools/assets.dart';
 
 class DeatailsPage extends StatelessWidget {
   final Service? service;
-  const DeatailsPage({super.key, required this.service});
+  const DeatailsPage({super.key, this.service});
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +64,13 @@ class DeatailsPage extends StatelessWidget {
             Card(
               elevation: 7,
               child: ListTile(
-                  tileColor: Theme.of(context).colorScheme.primary,
-                  title: Text(
-                      overflow: TextOverflow.ellipsis,
-                      "Water Tank \n${service!.name}",
-                      style: subHeadingStyleBlue),
-                  subtitle:
-                      Text("₹ ${service!.price}-/", style: blacktextStyle),
-                  trailing: box(context, 'Book Now',
-                      Theme.of(context).colorScheme.inversePrimary, () {})),
+                tileColor: Theme.of(context).colorScheme.primary,
+                title: Text(
+                    overflow: TextOverflow.ellipsis,
+                    "Water Tank \n${service!.name}",
+                    style: subHeadingStyleBlue),
+                trailing: Text("₹ ${service!.price}-/", style: blacktextStyle),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -103,9 +101,13 @@ class DeatailsPage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("₹ ${service!.price}-/", style: blacktextStyle),
-              box(context, 'Continue', Colors.black26, () {
-                Get.to(SchedulePage(),
+              SizedBox(),
+              box(context, 'Continue',
+                  Theme.of(context).colorScheme.inversePrimary, () {
+                Get.to(
+                    SchedulePage(
+                      service: service,
+                    ),
                     transition: Transition.fadeIn,
                     duration: Duration(seconds: 2));
               })
@@ -125,9 +127,7 @@ class DeatailsPage extends StatelessWidget {
         width: 120,
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
-              color: Colors.grey.shade500,
-              offset: const Offset(4, 4),
-              blurRadius: 3)
+              color: Colors.white, offset: const Offset(4, 4), blurRadius: 3)
         ], borderRadius: BorderRadius.circular(10), color: color),
         child: Text(txt, style: buttonStyle),
       ),
