@@ -17,7 +17,7 @@ TextStyle get WhiteheadingStyle {
 
 TextStyle get greySmalltext {
   return GoogleFonts.lato(
-      textStyle: TextStyle(fontSize: 12, color: Colors.grey.shade500));
+      textStyle: TextStyle(fontSize: 12, color: Colors.grey.shade600));
 }
 
 TextStyle get subHeadingStyleBlue {

@@ -66,9 +66,9 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.shade300,
+                    color: Colors.grey.shade500,
                     offset: const Offset(4, 4),
-                    blurRadius: 5),
+                    blurRadius: 2),
               ]),
           child: const CircleAvatar(
             backgroundImage: AssetImage(
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-                color: Colors.grey.shade300,
+                color: Colors.grey.shade400,
                 offset: const Offset(4, 4),
                 blurRadius: 5),
           ]),

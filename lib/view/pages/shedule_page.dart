@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:water_tech/controller/home_provider_controller.dart';
 import 'package:water_tech/model/Service.dart';
+import 'package:water_tech/view/pages/orderConfirmed.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
 import 'package:water_tech/view/tools/my_button.dart';
 
@@ -156,28 +158,55 @@ class _SchedulePageState extends State<SchedulePage> {
               const SizedBox(
                 height: 20,
               ),
+              GestureDetector(
+                onTap: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      'assets/photo/googlemap.png',
+                      height: 30,
+                      width: 30,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Share Google Location',
+                      style: subHeadingStyleBlue,
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               Text(
-                'Share Google Location :',
+                'Place & City:',
                 style: subHeadingStyleBlue,
               ),
-              Container(
-                height: 45,
-                width: 350,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.fast_forward_outlined),
-                    label: Text('Click for your current location',
-                        style: buttonStyle),
-                  ),
-                ),
+              const SizedBox(
+                height: 5,
               ),
-              SizedBox(
+              Text(
+                'Malappuram',
+                style: greySmalltext,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Lattitude & Longittude Value:',
+                style: subHeadingStyleBlue,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                '133255421254',
+                style: greySmalltext,
+              ),
+              const SizedBox(
                 height: 20,
               ),
               payButton()
@@ -188,11 +217,15 @@ class _SchedulePageState extends State<SchedulePage> {
       bottomNavigationBar: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(),
+          const SizedBox(),
           SizedBox(
               width: 120,
               height: 70,
-              child: MyButton(txt: 'Confirm Booking', ontap: () {})),
+              child: MyButton(
+                  txt: 'Confirm Booking',
+                  ontap: () {
+                    Get.to(const OrderConfirmedPage());
+                  })),
         ],
       ),
     );
@@ -221,7 +254,10 @@ class _SchedulePageState extends State<SchedulePage> {
         hintText: hintTxt,
         hintStyle: greySmalltext,
         filled: true,
-        suffixIcon: IconButton(onPressed: buttonAction, icon: suffixIcon),
+        suffixIcon: IconButton(
+            onPressed: buttonAction,
+            icon: suffixIcon,
+            color: Colors.grey.shade600),
       ),
     );
   }
@@ -234,7 +270,10 @@ class _SchedulePageState extends State<SchedulePage> {
         padding: const EdgeInsets.all(8.0),
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text("₹ ${widget.service!.price.toString()}"),
+          Text(
+            "₹ ${widget.service!.price.toString()}",
+            style: blacktextStyle,
+          ),
           GestureDetector(
             onTap: () {
               if (widget.service!.price.toString().isNotEmpty) {
