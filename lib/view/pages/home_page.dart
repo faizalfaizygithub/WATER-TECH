@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:water_tech/controller/home_provider_controller.dart';
+import 'package:water_tech/controller/Provider/home_provider_controller.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
 import 'package:water_tech/view/tools/assets.dart';
 import 'package:water_tech/view/tools/carousel.dart';
@@ -66,8 +66,8 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.shade500,
-                    offset: const Offset(4, 4),
+                    color: Colors.grey.shade400,
+                    offset: const Offset(4, 2),
                     blurRadius: 2),
               ]),
           child: const CircleAvatar(

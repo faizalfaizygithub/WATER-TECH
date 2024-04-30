@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:water_tech/controller/onBoardController.dart';
+import 'package:water_tech/controller/GetX/onBoardController.dart';
 import 'package:water_tech/view/pages/AutenticationPages/signup_page.dart';
 import 'package:water_tech/view/tools/MyDot_indicator.dart';
 import 'package:water_tech/view/tools/myOnboardTile.dart';
@@ -59,7 +59,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.white,
-      body: Container(
+      body: SizedBox(
         height: size.height,
         width: size.width,
         child: Column(

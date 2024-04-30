@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:water_tech/model/Service.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
 import 'package:water_tech/view/tools/my_button.dart';
 
 class OrderConfirmedPage extends StatefulWidget {
-  const OrderConfirmedPage({super.key});
+  final Service? service;
+
+  const OrderConfirmedPage({
+    Key? key,
+    this.service,
+  }) : super(key: key);
 
   @override
   State<OrderConfirmedPage> createState() => _OrderConfirmedPageState();
@@ -25,7 +31,7 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
             Navigator.pop(context);
           },
         ),
-        title: Text(' Order Booked', style: BlueheadingStyle),
+        title: Text('Order Booked', style: BlueheadingStyle),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -45,7 +51,7 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Dear customer , Thank you so much for your order . Very soon our professional will contact you. ',
+                    'Dear customer, Thank you so much for your order. Very soon our professional will contact you.',
                     style: blacksmalltext,
                   ),
                 ),
@@ -59,18 +65,23 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
                       children: [
                         Expanded(
                           child: Text(
-                            ' Category:',
+                            'Service:',
                             style: subHeadingStyleBlue,
                           ),
                         ),
-                        SizedBox(
-                          width: 110,
+                        const SizedBox(
+                          width: 100,
                         ),
                         Expanded(
-                          child:
-                              Text('WaterTank 750 LTR', style: greySmalltext),
+                          child: Text(
+                            widget.service?.name ?? 'null',
+                            style: greySmalltext,
+                          ),
                         )
                       ],
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,7 +90,10 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
                           'Total Amount:',
                           style: subHeadingStyleBlue,
                         ),
-                        Text('650', style: blacktextStyle)
+                        Text(
+                          widget.service?.price.toString() ?? 'null',
+                          style: blacktextStyle,
+                        )
                       ],
                     ),
                     Row(
@@ -114,7 +128,7 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
                         '12:00',
                         style: greySmalltext,
                       ),
-                      Text(
+                      const Text(
                         ':',
                       ),
                       Text(
@@ -141,7 +155,7 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
                   ),
                   Expanded(
                     child: MyButton(
-                      txt: 'home',
+                      txt: 'Home',
                       ontap: () {},
                     ),
                   ),

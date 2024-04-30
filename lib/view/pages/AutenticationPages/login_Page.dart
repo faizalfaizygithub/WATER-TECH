@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:water_tech/controller/firebase_auth_services.dart';
+import 'package:water_tech/controller/Authentication/firebase_auth_services.dart';
 import 'package:water_tech/view/pages/AutenticationPages/signup_page.dart';
 import 'package:water_tech/view/pages/mainPage.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                 'Welcome Back',
                 style: WhiteheadingStyle,
               ),
-              Text('Login to your existing account', style: greySmalltext),
+              Text('Login to your existing account', style: whiteSmalltext),
               _image(),
               Column(
                 children: [
@@ -179,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
       if (user != null) {
         print('User sUccesfully signIN');
 
-        Get.to(MainPage());
+        Get.to(const MainPage());
       } else {
         wrongEmailOrpasswordMessage();
         Get.back(canPop: true);

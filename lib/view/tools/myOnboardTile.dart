@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:water_tech/controller/onBoardController.dart';
+import 'package:water_tech/controller/GetX/onBoardController.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
 
 class MyOnBoardTile extends StatelessWidget {
@@ -19,7 +19,7 @@ class MyOnBoardTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(
-            height: 150,
+            height: 100,
           ),
           AspectRatio(
             aspectRatio: 1.5,

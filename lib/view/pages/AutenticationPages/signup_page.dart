@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:water_tech/controller/firebase_auth_services.dart';
+import 'package:water_tech/controller/Authentication/firebase_auth_services.dart';
 import 'package:water_tech/view/pages/AutenticationPages/login_Page.dart';
 import 'package:water_tech/view/pages/mainPage.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
@@ -56,7 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 style: WhiteheadingStyle,
               ),
               Text('Signup your Account to access  \n our service..',
-                  style: greySmalltext),
+                  style: whiteSmalltext),
               _image(),
               Column(
                 children: [
@@ -98,7 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       onPressed: () {
                         Get.to(const LoginPage(),
                             transition: Transition.zoom,
-                            duration: Duration(seconds: 2));
+                            duration: const Duration(seconds: 2));
                       },
                       child: const Text(
                         'Login',
@@ -140,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
       if (user != null) {
         print('User sUccesfully created');
-        Get.to(MainPage());
+        Get.to(const MainPage());
       } else {
         Get.back(canPop: true);
         print('some error happend');

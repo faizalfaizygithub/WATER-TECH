@@ -20,6 +20,14 @@ TextStyle get greySmalltext {
       textStyle: TextStyle(fontSize: 12, color: Colors.grey.shade600));
 }
 
+TextStyle get whiteSmalltext {
+  return GoogleFonts.lato(
+      textStyle: TextStyle(
+    fontSize: 12,
+    color: Colors.white70,
+  ));
+}
+
 TextStyle get subHeadingStyleBlue {
   return GoogleFonts.lato(
       textStyle: TextStyle(

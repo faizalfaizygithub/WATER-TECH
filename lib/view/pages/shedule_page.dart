@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import 'package:water_tech/controller/home_provider_controller.dart';
 import 'package:water_tech/model/Service.dart';
 import 'package:water_tech/view/pages/orderConfirmed.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
@@ -26,9 +27,60 @@ class _SchedulePageState extends State<SchedulePage> {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController amtController = TextEditingController();
 
+  //to DB
+
+  final CollectionReference work =
+      FirebaseFirestore.instance.collection('work');
+
+  void addToDb() {
+    final data = {
+      'servicename': '',
+      'price': widget.service!.price.toString(),
+      'time': timeController.text,
+      'date': dateController.text,
+      'placeandcity': _currentAddress,
+      'locationvalue': _currentLocation.toString(),
+      'address': addressController.text,
+    };
+    work.add(data);
+  }
+
+  Position? _currentLocation;
+  late bool servicePermission = false;
+  late LocationPermission permission;
+
+  String _currentAddress = '';
+
+  Future<Position> _getCurrentLocation() async {
+    servicePermission = await Geolocator.isLocationServiceEnabled();
+    if (!servicePermission) {
+      print('service disabled');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+    return await Geolocator.getCurrentPosition();
+  }
+
+  _getAddressFromCoordinates() async {
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          _currentLocation!.latitude, _currentLocation!.longitude);
+      Placemark place = placemarks[0];
+      setState(() {
+        _currentAddress = "${place.locality},${place.country}";
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
 //RAZORE PAY PAYMENT INTEGRATION METHOD
 
   late Razorpay _razorpay;
+
+  get service => null;
 
   void openCheckout(amount) async {
     amount = amount * 100;
@@ -89,8 +141,6 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget build(
     BuildContext context,
   ) {
-    final serviceData = context.watch<HomeProviderController>().serviceList;
-
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -159,7 +209,12 @@ class _SchedulePageState extends State<SchedulePage> {
                 height: 20,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  _currentLocation = await _getCurrentLocation();
+                  await _getAddressFromCoordinates();
+                  print("${_currentLocation}");
+                  print("${_currentAddress}");
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -189,7 +244,7 @@ class _SchedulePageState extends State<SchedulePage> {
                 height: 5,
               ),
               Text(
-                'Malappuram',
+                _currentAddress,
                 style: greySmalltext,
               ),
               const SizedBox(
@@ -203,7 +258,7 @@ class _SchedulePageState extends State<SchedulePage> {
                 height: 5,
               ),
               Text(
-                '133255421254',
+                "Latitude =${_currentLocation?.latitude}; Longitude=${_currentLocation?.longitude}",
                 style: greySmalltext,
               ),
               const SizedBox(
@@ -224,7 +279,7 @@ class _SchedulePageState extends State<SchedulePage> {
               child: MyButton(
                   txt: 'Confirm Booking',
                   ontap: () {
-                    Get.to(const OrderConfirmedPage());
+                    Get.to(OrderConfirmedPage(service: service));
                   })),
         ],
       ),
@@ -265,42 +320,52 @@ class _SchedulePageState extends State<SchedulePage> {
   payButton() {
     return Container(
       color: Theme.of(context).colorScheme.primary,
-      height: 70,
+      height: 90,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child:
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(
-            "₹ ${widget.service!.price.toString()}",
-            style: blacktextStyle,
-          ),
-          GestureDetector(
-            onTap: () {
-              if (widget.service!.price.toString().isNotEmpty) {
-                setState(() {
-                  double amount = double.parse(
-                    widget.service!.price.toString(),
-                  );
-                  openCheckout(amount);
-                });
-              }
-            },
-            child: Container(
-              alignment: Alignment.center,
-              height: 40,
-              width: 120,
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.inversePrimary,
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.white, offset: Offset(2, 2), blurRadius: 2)
-                ],
-                borderRadius: BorderRadius.circular(10),
+              Text(
+                "₹ ${widget.service!.price.toString()}",
+                style: blacktextStyle,
               ),
-              child: Text('Pay Now', style: buttonStyle),
-            ),
-          ),
-        ]),
+              GestureDetector(
+                onTap: () {
+                  if (widget.service!.price.toString().isNotEmpty) {
+                    setState(() {
+                      double amount = double.parse(
+                        widget.service!.price.toString(),
+                      );
+                      openCheckout(amount);
+                    });
+                  }
+                },
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    height: 40,
+                    width: 120,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.white,
+                            offset: Offset(2, 2),
+                            blurRadius: 2)
+                      ],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text('Pay Now', style: buttonStyle),
+                  ),
+                ),
+              ),
+            ]),
+            Text(widget.service!.name, style: blacksmalltext),
+          ],
+        ),
       ),
     );
   }
