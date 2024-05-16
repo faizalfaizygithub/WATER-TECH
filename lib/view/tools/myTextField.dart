@@ -19,7 +19,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -32,6 +32,7 @@ class CustomTextField extends StatelessWidget {
             keyboardType: TextInputType.text,
             enabled: true,
             decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(15),
                 filled: true,
                 fillColor: Colors.grey.shade200,
                 prefixIcon: Icon(
@@ -44,7 +45,7 @@ class CustomTextField extends StatelessWidget {
                     width: 2,
                   ),
                   borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
+                    Radius.circular(15),
                   ),
                 ),
                 focusedBorder: const OutlineInputBorder(
@@ -53,7 +54,7 @@ class CustomTextField extends StatelessWidget {
                     width: 1,
                   ),
                   borderRadius: BorderRadius.all(
-                    Radius.circular(20),
+                    Radius.circular(15),
                   ),
                 ),
                 labelText: labeltxt,

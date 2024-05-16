@@ -4,7 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:water_tech/controller/Provider/home_provider_controller.dart';
 import 'package:water_tech/model/Service.dart';
 import 'package:water_tech/view/pages/orderConfirmed.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
@@ -24,8 +26,11 @@ class SchedulePage extends StatefulWidget {
 class _SchedulePageState extends State<SchedulePage> {
   TextEditingController timeController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
+  TextEditingController get _dateController => dateController;
   final TextEditingController addressController = TextEditingController();
   final TextEditingController amtController = TextEditingController();
+
+  //
 
   //to DB
 
@@ -34,7 +39,7 @@ class _SchedulePageState extends State<SchedulePage> {
 
   void addToDb() {
     final data = {
-      'servicename': '',
+      'servicename': "WaterTank ${widget.service!.name}",
       'price': widget.service!.price.toString(),
       'time': timeController.text,
       'date': dateController.text,
@@ -79,8 +84,6 @@ class _SchedulePageState extends State<SchedulePage> {
 //RAZORE PAY PAYMENT INTEGRATION METHOD
 
   late Razorpay _razorpay;
-
-  get service => null;
 
   void openCheckout(amount) async {
     amount = amount * 100;
@@ -127,6 +130,8 @@ class _SchedulePageState extends State<SchedulePage> {
 
   @override
   void initState() {
+    // final data = Provider.of<HomeProviderController>(context);
+
     super.initState();
 
     _razorpay = Razorpay();
@@ -137,10 +142,13 @@ class _SchedulePageState extends State<SchedulePage> {
 
 //END RAZORE PAY CODE
 
+  final DateTime _selectedDate = DateTime.now();
+
   @override
   Widget build(
     BuildContext context,
   ) {
+    String selectedDate = context.watch<HomeProviderController>().date;
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -270,17 +278,27 @@ class _SchedulePageState extends State<SchedulePage> {
         ),
       ),
       bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const SizedBox(),
           SizedBox(
-              width: 120,
-              height: 70,
+              width: 180,
+              height: 60,
               child: MyButton(
-                  txt: 'Confirm Booking',
+                  txt: 'Confirm & Booking',
                   ontap: () {
-                    Get.to(OrderConfirmedPage(service: service));
+                    addToDb();
+
+                    Get.to(OrderConfirmedPage(
+                        service: Service(
+                      name: widget.service!.name,
+                      imagePath: widget.service!.imagePath,
+                      price: widget.service!.price,
+                    )));
                   })),
+          const SizedBox(
+            width: 15,
+          )
         ],
       ),
     );
@@ -320,9 +338,9 @@ class _SchedulePageState extends State<SchedulePage> {
   payButton() {
     return Container(
       color: Theme.of(context).colorScheme.primary,
-      height: 90,
+      height: 80,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -363,7 +381,7 @@ class _SchedulePageState extends State<SchedulePage> {
                 ),
               ),
             ]),
-            Text(widget.service!.name, style: blacksmalltext),
+            Text("WaterTank ${widget.service!.name}", style: blacksmalltext),
           ],
         ),
       ),

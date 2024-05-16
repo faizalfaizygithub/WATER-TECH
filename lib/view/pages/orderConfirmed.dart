@@ -1,24 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
+import 'package:water_tech/controller/Provider/home_provider_controller.dart';
 import 'package:water_tech/model/Service.dart';
+import 'package:water_tech/view/pages/mainPage.dart';
+import 'package:water_tech/view/pages/shedule_page.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
 import 'package:water_tech/view/tools/my_button.dart';
 
 class OrderConfirmedPage extends StatefulWidget {
+  final SchedulePage? schedulePage;
   final Service? service;
 
   const OrderConfirmedPage({
-    Key? key,
-    this.service,
-  }) : super(key: key);
+    super.key,
+    required this.service,
+    this.schedulePage,
+  });
 
   @override
   State<OrderConfirmedPage> createState() => _OrderConfirmedPageState();
 }
 
 class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
+  TextEditingController _dateController = TextEditingController();
+
+  get date => date;
+
   @override
   Widget build(BuildContext context) {
+    final data = context.watch<HomeProviderController>();
+    // Ensure service is not null before accessing its properties
+    // final serviceName = widget.service?.name ?? widget.service!.name;
+
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -74,10 +89,10 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
                         ),
                         Expanded(
                           child: Text(
-                            widget.service?.name ?? 'null',
+                            "'WaterTank '${widget.service!.name}",
                             style: greySmalltext,
                           ),
-                        )
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -91,7 +106,7 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
                           style: subHeadingStyleBlue,
                         ),
                         Text(
-                          widget.service?.price.toString() ?? 'null',
+                          "₹ ${widget.service!.price.toString()}",
                           style: blacktextStyle,
                         )
                       ],
@@ -118,21 +133,14 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
                 children: [
                   Text('Selected Date and Time', style: subHeadingStyleBlue),
                   Text(
-                    '12/4/2024',
+                    '26/05/2024',
                     style: greySmalltext,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        '12:00',
-                        style: greySmalltext,
-                      ),
-                      const Text(
-                        ':',
-                      ),
-                      Text(
-                        '12:59',
+                        "10:00AM",
                         style: greySmalltext,
                       ),
                     ],
@@ -156,7 +164,9 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
                   Expanded(
                     child: MyButton(
                       txt: 'Home',
-                      ontap: () {},
+                      ontap: () {
+                        Get.to(const MainPage());
+                      },
                     ),
                   ),
                 ],

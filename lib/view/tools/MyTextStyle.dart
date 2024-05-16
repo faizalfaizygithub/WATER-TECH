@@ -51,5 +51,5 @@ TextStyle get blacksmalltext {
 TextStyle get blacktextStyle {
   return GoogleFonts.aBeeZee(
       textStyle:
-          const TextStyle(color: Colors.black54, fontWeight: FontWeight.w600));
+          const TextStyle(color: Colors.black87, fontWeight: FontWeight.w500));
 }

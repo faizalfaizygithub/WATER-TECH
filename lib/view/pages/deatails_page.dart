@@ -26,7 +26,7 @@ class DeatailsPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios_new,
                     color: Colors.blue,
                   ),
@@ -101,7 +101,7 @@ class DeatailsPage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(),
+              const SizedBox(),
               box(context, 'Continue',
                   Theme.of(context).colorScheme.inversePrimary, () {
                 Get.to(
@@ -109,8 +109,8 @@ class DeatailsPage extends StatelessWidget {
                       service: service,
                     ),
                     transition: Transition.fadeIn,
-                    duration: Duration(seconds: 2));
-              })
+                    duration: const Duration(seconds: 2));
+              }),
             ],
           ),
         ),
@@ -126,8 +126,8 @@ class DeatailsPage extends StatelessWidget {
         height: 40,
         width: 120,
         decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-              color: Colors.white, offset: const Offset(4, 4), blurRadius: 3)
+          const BoxShadow(
+              color: Colors.white, offset: Offset(4, 4), blurRadius: 3)
         ], borderRadius: BorderRadius.circular(10), color: color),
         child: Text(txt, style: buttonStyle),
       ),
