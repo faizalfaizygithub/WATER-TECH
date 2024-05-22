@@ -88,12 +88,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 30,
               ),
               MyButton(
+                  color: Theme.of(context).colorScheme.inversePrimary,
                   txt: 'Create Account',
                   ontap: () {
                     _signUp();
                   }),
               const SizedBox(
-                height: 20,
+                height: 30,
               ),
               Text(
                 '-------------- Or Register with ---------------',

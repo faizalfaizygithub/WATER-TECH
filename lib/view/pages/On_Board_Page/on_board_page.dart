@@ -102,11 +102,15 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             ),
             MyButton(
                 txt: 'Get Started',
+                color: Theme.of(context).colorScheme.inversePrimary,
                 ontap: () {
                   Get.to(const SignUpPage(),
                       transition: Transition.fadeIn,
                       duration: Duration(seconds: 2));
-                })
+                }),
+            SizedBox(
+              height: 30,
+            ),
           ],
         ),
       ),

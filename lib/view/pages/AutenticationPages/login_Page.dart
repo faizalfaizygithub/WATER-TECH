@@ -109,12 +109,13 @@ class _LoginPageState extends State<LoginPage> {
                 height: 30,
               ),
               MyButton(
+                  color: Theme.of(context).colorScheme.inversePrimary,
                   txt: 'Login',
                   ontap: () {
                     _signIn();
                   }),
               const SizedBox(
-                height: 20,
+                height: 30,
               ),
               Text(
                 '-------------- Or Login with ---------------',
