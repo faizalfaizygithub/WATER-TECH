@@ -4,9 +4,11 @@ import 'package:water_tech/view/tools/MyTextStyle.dart';
 class MyButton extends StatelessWidget {
   final String txt;
   final Function() ontap;
+  final Color? color;
   const MyButton({
     super.key,
     required this.txt,
+    this.color,
     required this.ontap,
   });
 

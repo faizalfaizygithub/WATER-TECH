@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:water_tech/controller/Authentication/firebase_auth_services.dart';
 import 'package:water_tech/view/pages/AutenticationPages/signup_page.dart';
+import 'package:water_tech/view/pages/forget_password.dart';
 import 'package:water_tech/view/pages/mainPage.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
 import 'package:water_tech/view/tools/myTextField.dart';
@@ -23,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  FocusNode emailNode = FocusNode();
+  FocusNode passwordNode = FocusNode();
 
   @override
   void dispose() {
@@ -92,7 +95,9 @@ class _LoginPageState extends State<LoginPage> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(ForgetPassword());
+                        },
                         child: const Text(
                           'Forget password',
                           style: TextStyle(color: Colors.blue, fontSize: 12),
@@ -108,6 +113,32 @@ class _LoginPageState extends State<LoginPage> {
                   ontap: () {
                     _signIn();
                   }),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                '-------------- Or Login with ---------------',
+                style: blacksmalltext,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  authButtons(
+                    'assets/auth/google.jpg',
+                    () => FirebaseAuthService().signInWithGoogle(),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  authButtons('assets/auth/fb.png', () {})
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -174,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
       String email = _emailController.text;
       String password = _passwordController.text;
 
-      User? user = await _auth.SignInWithEmailAndPassword(email, password);
+      User? user = await _auth.signInWithEmailAndPassword(email, password);
 
       if (user != null) {
         print('User sUccesfully signIN');
@@ -187,5 +218,32 @@ class _LoginPageState extends State<LoginPage> {
     } catch (e) {
       Get.snackbar('incorrect', '$e');
     }
+  }
+
+  authButtons(String img, Function() ontap) {
+    return InkWell(
+      onTap: ontap,
+      child: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                color: Colors.white,
+                offset: Offset(1, 2),
+                blurRadius: 2,
+                spreadRadius: 2),
+          ],
+          borderRadius: BorderRadius.circular(15),
+        ),
+        height: 60,
+        width: 60,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Image.asset(
+            img,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -21,6 +21,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  FocusNode emailNode = FocusNode();
+  FocusNode passwordNode = FocusNode();
+  FocusNode userNode = FocusNode();
+
   @override
   void dispose() {
     _usernameController.dispose();
@@ -61,16 +65,18 @@ class _SignUpPageState extends State<SignUpPage> {
               Column(
                 children: [
                   CustomTextField(
+                    focusNode: userNode,
                     controller: _usernameController,
                     obscuretext: false,
                     labeltxt: 'Username',
                     icon: Icons.person,
                   ),
                   CustomTextField(
-                      controller: _emailController,
-                      obscuretext: false,
-                      labeltxt: 'Email',
-                      icon: Icons.email),
+                    controller: _emailController,
+                    obscuretext: false,
+                    labeltxt: 'Email',
+                    icon: Icons.email,
+                  ),
                   CustomTextField(
                       controller: _passwordController,
                       obscuretext: false,
@@ -86,6 +92,32 @@ class _SignUpPageState extends State<SignUpPage> {
                   ontap: () {
                     _signUp();
                   }),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                '-------------- Or Register with ---------------',
+                style: blacksmalltext,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  authButtons(
+                    'assets/auth/google.jpg',
+                    () => FirebaseAuthService().signInWithGoogle(),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  authButtons('assets/auth/fb.png', () {})
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -160,5 +192,32 @@ class _SignUpPageState extends State<SignUpPage> {
             style: TextStyle(color: Colors.red, fontSize: 12),
           ));
         });
+  }
+
+  authButtons(String img, Function() ontap) {
+    return InkWell(
+      onTap: ontap,
+      child: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            const BoxShadow(
+                color: Colors.white,
+                offset: const Offset(1, 2),
+                blurRadius: 2,
+                spreadRadius: 2),
+          ],
+          borderRadius: BorderRadius.circular(15),
+        ),
+        height: 60,
+        width: 60,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Image.asset(
+            img,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
   }
 }

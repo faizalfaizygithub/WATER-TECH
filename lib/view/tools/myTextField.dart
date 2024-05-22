@@ -7,14 +7,16 @@ class CustomTextField extends StatelessWidget {
   TextEditingController? controller;
   Widget? suffxicon;
   bool obscuretext;
-
+  FocusNode? focusNode;
+  FocusNode? focusNodeNext;
   CustomTextField(
-      {super.key,
-      this.controller,
+      {this.controller,
+      this.focusNode,
+      this.focusNodeNext,
+      this.icon,
       required this.labeltxt,
-      this.suffxicon,
       required this.obscuretext,
-      this.icon});
+      this.suffxicon});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,13 @@ class CustomTextField extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          TextField(
+          TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "$labeltxt is required";
+              }
+              return null;
+            },
             obscureText: obscuretext,
             style: TextStyle(fontSize: 12),
             cursorColor: Colors.black54,
