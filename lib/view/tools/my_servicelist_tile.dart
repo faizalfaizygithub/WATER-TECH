@@ -46,6 +46,7 @@ class MyServiceListTile extends StatelessWidget {
               Text(
                 service.name,
                 style: subHeadingStyleBlue,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(
                 height: 20,
@@ -65,7 +66,7 @@ class MyServiceListTile extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    service.price.toString(),
+                    "₹ ${service.price.toString()}",
                     textAlign: TextAlign.center,
                     style: buttonStyle,
                   ),

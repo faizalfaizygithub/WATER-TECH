@@ -154,6 +154,7 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
                 children: [
                   Expanded(
                     child: MyButton(
+                      color: Colors.black87,
                       txt: 'Track Booking',
                       ontap: () {},
                     ),
@@ -163,6 +164,7 @@ class _OrderConfirmedPageState extends State<OrderConfirmedPage> {
                   ),
                   Expanded(
                     child: MyButton(
+                      color: Theme.of(context).colorScheme.inversePrimary,
                       txt: 'Home',
                       ontap: () {
                         Get.to(const MainPage());

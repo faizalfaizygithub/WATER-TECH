@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:water_tech/model/on_board.dart';
 
 class OnBoardController extends GetxController {
+  var loading = false.obs;
+
   final List<OnBoard> _onboardList = [
     OnBoard(
         imagePath: 'assets/onboard/page1.jpg',

@@ -17,20 +17,16 @@ class MyButton extends StatelessWidget {
     return InkResponse(
       splashColor: Colors.blue.shade500,
       onTap: ontap,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 15.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.inversePrimary,
-              borderRadius: BorderRadius.circular(15)),
-          height: 50,
-          width: 250,
-          child: Center(
-            child: Text(
-              txt,
-              style: buttonStyle,
-              textAlign: TextAlign.center,
-            ),
+      child: Container(
+        decoration: BoxDecoration(
+            color: color, borderRadius: BorderRadius.circular(15)),
+        height: 50,
+        width: 250,
+        child: Center(
+          child: Text(
+            txt,
+            style: buttonStyle,
+            textAlign: TextAlign.center,
           ),
         ),
       ),

@@ -2,13 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:water_tech/controller/Provider/home_provider_controller.dart';
+import 'package:water_tech/model/Service.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
 import 'package:water_tech/view/tools/assets.dart';
 import 'package:water_tech/view/tools/carousel.dart';
 import 'package:water_tech/view/tools/my_servicelist_tile.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Service? service;
+  const HomePage({super.key, this.service});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -51,7 +53,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 10,
           ),
-          capsuleTankSec(),
+          // capsuleTankSec(context),
         ]);
   }
 
@@ -132,21 +134,24 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  capsuleTankSec() {
-    return ListTile(
-      tileColor: Colors.grey.shade300,
-      isThreeLine: true,
-      leading: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Image.asset('assets/photo/capsule.png')),
-      title: Text('CAPSULE TANK', style: subHeadingStyleBlue),
-      subtitle: Text('Just 100+ extra', style: greySmalltext),
-      trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.arrow_forward_ios,
-            color: Colors.blue,
-          )),
-    );
-  }
+  // capsuleTankSec(BuildContext context) {
+  //   return ListTile(
+  //     tileColor: Colors.grey.shade300,
+  //     isThreeLine: true,
+  //     leading: ClipRRect(
+  //       borderRadius: BorderRadius.circular(20),
+  //       child: Image.asset(widget.service!.imagePath),
+  //     ),
+  //     title: Text(widget.service!.name, style: subHeadingStyleBlue),
+  //     subtitle: Text(widget.service!.price.toString(), style: greySmalltext),
+  //     trailing: IconButton(
+  //         onPressed: () {
+  //           Get.to(const DeatailsPage());
+  //         },
+  //         icon: const Icon(
+  //           Icons.arrow_forward_ios,
+  //           color: Colors.blue,
+  //         )),
+  //   );
+  //}
 }

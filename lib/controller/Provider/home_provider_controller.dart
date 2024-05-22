@@ -3,14 +3,22 @@ import 'package:water_tech/model/Service.dart';
 
 class HomeProviderController extends ChangeNotifier {
   final List<Service> _service = [
-    Service(name: '500 LTR', imagePath: 'assets/photo/pic.webp', price: 550),
-    Service(name: ' 750 LTR', imagePath: 'assets/photo/pic.webp', price: 650),
-    Service(name: ' 1000 LTR', imagePath: 'assets/photo/pic.webp', price: 750),
+    Service(name: '500 LTR', imagePath: 'assets/photo/pic.webp', price: 599),
+    Service(name: ' 750 LTR', imagePath: 'assets/photo/pic.webp', price: 699),
+    Service(name: ' 1000 LTR', imagePath: 'assets/photo/pic.webp', price: 799),
     Service(
       name: '2000 LTR',
       imagePath: 'assets/photo/pic.webp',
-      price: 950,
+      price: 999,
     ),
+    Service(
+        name: 'Under 5000 LTR',
+        imagePath: 'assets/photo/pic.webp',
+        price: 3590),
+    Service(
+        name: 'Capsule Tank',
+        imagePath: 'assets/photo/capsule.png',
+        price: 1199)
   ];
 // get service list
   List<Service> get serviceList => _service;

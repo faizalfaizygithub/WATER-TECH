@@ -4,9 +4,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+import 'package:lottie/lottie.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import 'package:water_tech/controller/Provider/home_provider_controller.dart';
+import 'package:water_tech/controller/GetX/onBoardController.dart';
 import 'package:water_tech/model/Service.dart';
 import 'package:water_tech/view/pages/orderConfirmed.dart';
 import 'package:water_tech/view/tools/MyTextStyle.dart';
@@ -24,6 +24,8 @@ class SchedulePage extends StatefulWidget {
 }
 
 class _SchedulePageState extends State<SchedulePage> {
+  final controller = Get.put(OnBoardController());
+
   TextEditingController timeController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   TextEditingController get _dateController => dateController;
@@ -130,8 +132,6 @@ class _SchedulePageState extends State<SchedulePage> {
 
   @override
   void initState() {
-    // final data = Provider.of<HomeProviderController>(context);
-
     super.initState();
 
     _razorpay = Razorpay();
@@ -148,7 +148,6 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget build(
     BuildContext context,
   ) {
-    String selectedDate = context.watch<HomeProviderController>().date;
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -272,34 +271,31 @@ class _SchedulePageState extends State<SchedulePage> {
               const SizedBox(
                 height: 20,
               ),
-              payButton()
+              payButton(),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const SizedBox(),
+                  SizedBox(
+                      width: 150,
+                      height: 50,
+                      child: MyButton(
+                          color: Colors.black87,
+                          txt: 'Book Now',
+                          ontap: () {
+                            bottomBar(context);
+                          })),
+                  const SizedBox(
+                    width: 15,
+                  )
+                ],
+              ),
             ],
           ),
         ),
-      ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          const SizedBox(),
-          SizedBox(
-              width: 180,
-              height: 60,
-              child: MyButton(
-                  txt: 'Confirm & Booking',
-                  ontap: () {
-                    addToDb();
-
-                    Get.to(OrderConfirmedPage(
-                        service: Service(
-                      name: widget.service!.name,
-                      imagePath: widget.service!.imagePath,
-                      price: widget.service!.price,
-                    )));
-                  })),
-          const SizedBox(
-            width: 15,
-          )
-        ],
       ),
     );
   }
@@ -386,5 +382,100 @@ class _SchedulePageState extends State<SchedulePage> {
         ),
       ),
     );
+  }
+
+  void bottomBar(BuildContext context) {
+    showModalBottomSheet(
+        backgroundColor: Colors.grey.shade200,
+        context: context,
+        builder: (builder) {
+          return Padding(
+            padding: const EdgeInsets.all(20),
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 3.0,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text('Please Confirm Your Booking', style: greySmalltext),
+                    Lottie.asset('assets/json/hand.json',
+                        height: 100, width: 100),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: MyButton(
+                              txt: 'Cancel',
+                              color: Colors.black87,
+                              ontap: () {
+                                Navigator.pop(context);
+                              }),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                          child: Obx(
+                            () => InkWell(
+                              onTap: controller.loading.value
+                                  ? null
+                                  : () async {
+                                      controller.loading.value = true;
+                                      await Future.delayed(
+                                          const Duration(seconds: 2));
+                                      controller.loading.value = false;
+                                      if (dateController.text.isNotEmpty) {
+                                        addToDb();
+                                        Get.to(OrderConfirmedPage(
+                                            service: Service(
+                                          name: widget.service!.name,
+                                          imagePath: widget.service!.imagePath,
+                                          price: widget.service!.price,
+                                        )));
+                                      } else {
+                                        incompleateData();
+                                      }
+                                    },
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .inversePrimary,
+                                      borderRadius: BorderRadius.circular(15)),
+                                  height: 50,
+                                  width: 250,
+                                  child: Center(
+                                      child: controller.loading.value
+                                          ? const CircularProgressIndicator(
+                                              color: Colors.white,
+                                            )
+                                          : Text('Confirm',
+                                              style: buttonStyle))),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                )),
+          );
+        });
+  }
+
+  void incompleateData() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            icon: const Icon(Icons.dangerous_rounded),
+            iconColor: Colors.red,
+            title: Text(
+              'Please fill up your full details',
+              style: greySmalltext,
+            ),
+          );
+        });
   }
 }
