@@ -59,6 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 10,
             ),
             MyButton(
+              color: Colors.blue,
               txt: 'save',
               ontap: () {},
             ),
